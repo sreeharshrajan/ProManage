@@ -1,8 +1,45 @@
 services:
+  #-------------------
+  # Backend API Service
+  #-------------------
   - type: web
-    name: promanage-server
+    name: promanage-api # A unique name for the backend service
     env: node
     rootDir: server
+    plan: free # Optional: specify your plan, 'free' is the default
     buildCommand: npm install && npm run build
     startCommand: node dist/server.js
     autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        # IMPORTANT: Set this secret in the Render dashboard
+        fromSecret: true
+      - key: JWT_SECRET
+        # IMPORTANT: Set this secret in the Render dashboard
+        fromSecret: true
+
+  #---------------------
+  # Frontend Client Service
+  #---------------------
+  - type: static_site
+    name: promanage-client # A unique name for the frontend service
+    env: static
+    rootDir: client
+    plan: free # Optional: specify your plan, 'free' is the default
+    buildCommand: npm install && npm run build
+    publishDir: dist # The output directory for the Vite build
+    autoDeploy: true
+    envVars:
+      # Pass the backend API URL to the frontend build
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: promanage-api # Must match the name of your backend service
+          property: url
+    routes:
+      # Rewrite all requests to index.html for Single-Page App (SPA) routing
+      - type: rewrite
+        source: /*
+        destination: /index.html
