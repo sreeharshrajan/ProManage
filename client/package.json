@@ -1,0 +1,33 @@
+{
+  "name": "promanage-client",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.0",
+    "axios": "^1.7.2",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-redux": "^9.0.0",
+    "react-router-dom": "^6.23.1",
+    "socket.io-client": "^4.7.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.3.5",
+    "@vitejs/plugin-react-swc": "^4.1.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.34.0",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8"
+  }
+}
