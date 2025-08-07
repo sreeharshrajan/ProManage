@@ -7,4 +7,3 @@ command = "npm run build"
 
 [site]
 bucket = "./dist"
-entry-point = "."
