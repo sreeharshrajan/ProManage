@@ -1,0 +1,6 @@
+name = "promanage"
+main = "dist/index.js"
+compatibility_date = "2025-08-07"
+
+[build]
+command = "npm run build"
