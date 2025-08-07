@@ -1,6 +1,7 @@
-// models/userModel.ts
+import { ObjectId } from 'mongodb';
+
 export interface User {
-  _id?: string;
+  _id?: ObjectId; // <-- this matches MongoDB
   name: string;
   age: number;
   email: string;

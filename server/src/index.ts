@@ -15,19 +15,36 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Error handler for JSON parsing
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction): void => {
   if (err instanceof SyntaxError && 'body' in err) {
-    return res.status(400).json({ message: 'Invalid JSON payload' });
+    res.status(400).json({ message: 'Invalid JSON payload' });
+    return;
   }
-  next();
+
+  // Optionally handle unexpected errors here, or just call next
+  res.status(500).json({ message: 'Unexpected error occurred' });
 });
+
+// Global fallback error handler
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction): void => {
+  console.error('Unhandled error:', err);
+
+  res.status(500).json({
+    message: 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.message || err : undefined,
+  });
+});
+
+
 
 // Swagger Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api/users', userRoutes);
-app.get('/', (_req, res) => res.send('🚀 Server is up and running'));
+app.get('/', (_req, res): void => {
+  res.status(200).json({ message: '🚀 Server is up and running' });
+});
 
 // Server Start
 const initServer = async () => {
