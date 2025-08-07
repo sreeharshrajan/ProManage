@@ -183,8 +183,21 @@ npm run dev
 The React development server will run on http://localhost:3000.
 
 ## 🚀 Live Demo
-Coming Soon on Render or Cloudflare Pages
-A live demo of ProManage will be deployed soon. Both platforms offer modern cloud solutions for deployment.
+
+ProManage is available live for preview and testing:
+
+- 🌐 **Render Deployment**:  
+  [https://promanage-yqdc.onrender.com](https://promanage-yqdc.onrender.com)
+
+- 🌐 **Cloudflare Pages Deployment**:  
+  [https://promanage.sreeharshkrajan.workers.dev](https://promanage.sreeharshkrajan.workers.dev)
+
+You can explore the interactive **API documentation** powered by **Swagger (OpenAPI)** at the following route:
+
+- 📘 **API Docs**:  
+  [`/api-docs`](https://promanage-yqdc.onrender.com/api-docs)
+
+> Note: Both environments are continuously updated on new deployments. For production-level performance and uptime, Render is currently the preferred platform.
 
 ## 🤝 Contributing
 Pull requests and feature suggestions are welcome!
