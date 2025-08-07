@@ -53,7 +53,7 @@
 ## 📁 Project Structure
 
 The project is structured to maximize clarity, scalability, and maintainability. Below is a breakdown of the primary directories:
-
+```
 promanage/
 ├── client/                     # Frontend React application
 │   ├── public/                 # Static assets
@@ -82,6 +82,7 @@ promanage/
 │
 ├── .gitignore                  # Git ignored files and folders
 └── README.md                   # Project documentation
+```
 
 ## 🔩 Installation and Setup
 
