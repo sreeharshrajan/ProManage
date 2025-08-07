@@ -77,7 +77,7 @@ promanage/
 │   ├── routes/         # API routes
 │   ├── utils/          # Utility functions
 │   ├── .env.example    # Environment variables template
-│   ├── server.ts       # Main server entry point
+│   ├── index.ts        # Main server entry point
 │   └── package.json
 │
 └── .gitignore          # Files to be ignored by Git
