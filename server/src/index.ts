@@ -52,7 +52,7 @@ const initServer = async () => {
     await connectToMongo();
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
-      console.log(`🌍 Server running at http://localhost:${PORT}`);
+      console.log(`🌍 Server running in ${process.env.NODE_ENV} mode at http://localhost:${PORT}`);
       console.log(`📚 Swagger docs available at http://localhost:${PORT}/api-docs`);
     });
   } catch (err) {
