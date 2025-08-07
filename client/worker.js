@@ -1,18 +1,13 @@
-import { serveStatic } from 'worktop/static';
-import { Router } from 'worktop';
+import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
 
-const router = new Router();
-
-router.add('GET', '*', async (req, res) => {
-  return serveStatic(req, {
-    root: './dist',
-    onNotFound() {
-      // fallback to index.html for SPA routing
-      return serveStatic(req, { path: '/index.html', root: './dist' });
-    }
-  });
+addEventListener('fetch', event => {
+  event.respondWith(handleEvent(event));
 });
 
-export default {
-  fetch: router.run
-};
+async function handleEvent(event) {
+  try {
+    return await getAssetFromKV(event);
+  } catch (e) {
+    return new Response('Not Found', { status: 404 });
+  }
+}

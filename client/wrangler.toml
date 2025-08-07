@@ -1,6 +1,10 @@
 name = "promanage"
-main = "worker.js" 
+main = "worker.js"
 compatibility_date = "2025-08-07"
 
 [build]
 command = "npm run build"
+
+[site]
+bucket = "./dist"
+entry-point = "."
