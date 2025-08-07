@@ -1,5 +1,5 @@
 name = "promanage"
-main = "dist/index.js"
+main = "worker.js" 
 compatibility_date = "2025-08-07"
 
 [build]
