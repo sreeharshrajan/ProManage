@@ -55,30 +55,56 @@
 The project is structured to maximize clarity, scalability, and maintainability. Below is a breakdown of the primary directories:
 ```
 promanage/
-├── client/                     # Frontend React application
-│   ├── public/                 # Static assets
+├── client/                          # Frontend React + Vite + TypeScript app
+│   ├── public/                      # Static public assets
 │   ├── src/
-│   │   ├── components/         # Reusable UI components
-│   │   ├── hooks/              # Custom React hooks
-│   │   ├── pages/              # Application pages
-│   │   ├── services/           # API service calls
-│   │   ├── store/              # Zustand state management
-│   │   ├── utils/              # Utility functions
-│   │   ├── App.tsx             # Main app component
-│   │   └── main.tsx            # Application entry point
-│   ├── .env.example            # Example environment variables
-│   └── package.json            # Frontend dependencies and scripts
+│   │   ├── __tests__/              # Unit and component tests
+│   │   ├── assets/                 # Images, fonts, and other static assets
+│   │   ├── components/             # Reusable UI components
+│   │   ├── features/               # Feature-based modules
+│   │   ├── hooks/                  # Custom React hooks
+│   │   ├── layouts/                # Shared layout components
+│   │   ├── lib/                    # Shared libraries and helpers
+│   │   ├── pages/                  # Top-level views/pages
+│   │   ├── router/                 # React Router setup and routes
+│   │   ├── services/               # API and data fetching logic
+│   │   ├── store/                  # Zustand or other state management
+│   │   ├── styles/                 # Global and modular styles
+│   │   ├── types/                  # TypeScript type definitions
+│   │   ├── utils/                  # Utility functions
+│   │   ├── App.tsx                 # Root React component
+│   │   ├── main.tsx                # App entry point
+│   │   ├── setupTests.ts           # Jest/RTL test setup
+│   │   └── vite-env.d.ts           # Vite environment types
+│   ├── .env.example                # Example environment variables
+│   ├── .gitignore                  # Git ignore rules
+│   ├── eslint.config.js           # ESLint configuration
+│   ├── index.html                  # HTML template
+│   ├── package.json                # Project metadata and scripts
+│   ├── package-lock.json           # Locked dependencies
+│   └── tsconfig.json               # TypeScript configuration
 │
 ├── server/                     # Backend Node.js/Express application
-│   ├── config/                 # Configuration files (e.g., DB)
-│   ├── controllers/            # Request handlers and business logic
-│   ├── middleware/             # Custom middleware (e.g., auth)
-│   ├── models/                 # Mongoose data models
-│   ├── routes/                 # API route definitions
-│   ├── utils/                  # Backend utility functions
-│   ├── .env.example            # Example environment variables
-│   ├── index.ts                # Main server entry point
-│   └── package.json            # Backend dependencies and scripts
+│   ├── src/
+│   │   ├── config/             # App and DB configuration
+│   │   ├── controllers/        # Request handlers
+│   │   ├── docs/               # API documentation (e.g., Swagger)
+│   │   ├── middlewares/       # Custom middleware (e.g., auth, error handling)
+│   │   ├── models/            # Database models
+│   │   ├── routes/            # API route definitions
+│   │   ├── schemas/           # Request/response validation schemas
+│   │   ├── services/          # Business logic layer
+│   │   ├── sockets/           # WebSocket handlers
+│   │   ├── utils/             # Utility functions
+│   │   ├── validators/        # Custom request validators
+│   │   └── index.ts           # Server entry point
+│   ├── .env                   # Environment variables
+│   ├── .env.example           # Example environment variables
+│   ├── index.ts               # Main server entry point
+│   ├── render.yaml            # Render deployment config
+│   ├── package-lock.json
+│   ├── package.json           # Backend dependencies and scripts
+│   └── tsconfig.json          # TypeScript config
 │
 ├── .gitignore                  # Git ignored files and folders
 └── README.md                   # Project documentation
