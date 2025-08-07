@@ -55,33 +55,33 @@
 The project is structured to maximize clarity, scalability, and maintainability. Below is a breakdown of the primary directories:
 
 promanage/
-├── client/             # Frontend React Application
-│   ├── public/         # Static assets
+├── client/                     # Frontend React application
+│   ├── public/                 # Static assets
 │   ├── src/
-│   │   ├── components/ # Reusable UI components
-│   │   ├── hooks/      # Custom React hooks
-│   │   ├── pages/      # Application pages
-│   │   ├── services/   # API service calls
-│   │   ├── store/      # Zustand state management
-│   │   ├── utils/      # Utility functions
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   ├── .env.example    # Environment variables template
-│   └── package.json
+│   │   ├── components/         # Reusable UI components
+│   │   ├── hooks/              # Custom React hooks
+│   │   ├── pages/              # Application pages
+│   │   ├── services/           # API service calls
+│   │   ├── store/              # Zustand state management
+│   │   ├── utils/              # Utility functions
+│   │   ├── App.tsx             # Main app component
+│   │   └── main.tsx            # Application entry point
+│   ├── .env.example            # Example environment variables
+│   └── package.json            # Frontend dependencies and scripts
 │
-├── server/             # Backend Node.js/Express Application
-│   ├── config/         # Configuration files (db, etc.)
-│   ├── controllers/    # Request handlers and business logic
-│   ├── middleware/     # Custom middleware (e.g., auth)
-│   ├── models/         # Mongoose data models
-│   ├── routes/         # API routes
-│   ├── utils/          # Utility functions
-│   ├── .env.example    # Environment variables template
-│   ├── index.ts        # Main server entry point
-│   └── package.json
+├── server/                     # Backend Node.js/Express application
+│   ├── config/                 # Configuration files (e.g., DB)
+│   ├── controllers/            # Request handlers and business logic
+│   ├── middleware/             # Custom middleware (e.g., auth)
+│   ├── models/                 # Mongoose data models
+│   ├── routes/                 # API route definitions
+│   ├── utils/                  # Backend utility functions
+│   ├── .env.example            # Example environment variables
+│   ├── index.ts                # Main server entry point
+│   └── package.json            # Backend dependencies and scripts
 │
-└── .gitignore          # Files to be ignored by Git
-└── README.md
+├── .gitignore                  # Git ignored files and folders
+└── README.md                   # Project documentation
 
 ## 🔩 Installation and Setup
 
