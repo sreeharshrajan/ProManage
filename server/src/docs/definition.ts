@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.RENDER === 'true'
-    ? 'https://promanage.onrender.com' // replace with your actual Render subdomain
+    ? 'https://promanage-yqdc.onrender.com/'
     : `${process.env.HOST || 'http://localhost'}:${process.env.PORT || 5000}`;
 
 const swaggerDefinition = {
