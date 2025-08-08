@@ -1,52 +1,56 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors';
-import morgan from 'morgan';
-import { connectToMongo } from './config/db';
-import userRoutes from './routes/userRoutes';
+import { securityMiddleware, contentTypeMiddleware, securityHeaders,corsMiddleware  } from './middlewares/security';
+import { httpLogger, errorLogger } from './utils/logger.util';
+import connectToMongo from './config/db.config';
+import userRoutes from './routes/user.routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './docs/swagger';
 
+// Custom Middleware
+import { responseFormatter } from './utils/http/response.util';
+import { errorHandler } from './errors/handler.error';
+import { notFound } from './middlewares/not-found.middleware';
+
 dotenv.config();
+
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-app.use(morgan('dev'));
+// Security Middleware
+app.use(securityMiddleware);
+app.use(corsMiddleware);
+app.use(contentTypeMiddleware);
+app.use(securityHeaders);
 
-// Error handler for JSON parsing
-app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction): void => {
-  if (err instanceof SyntaxError && 'body' in err) {
-    res.status(400).json({ message: 'Invalid JSON payload' });
-    return;
-  }
+// Logging
+app.use(httpLogger);
 
-  // Optionally handle unexpected errors here, or just call next
-  res.status(500).json({ message: 'Unexpected error occurred' });
-});
+// Body parsers with size limits
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// Global fallback error handler
-app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction): void => {
-  console.error('Unhandled error:', err);
-
-  res.status(500).json({
-    message: 'Internal Server Error',
-    error: process.env.NODE_ENV === 'development' ? err.message || err : undefined,
-  });
-});
-
-
-
-// Swagger Docs
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Response formatting
+app.use(responseFormatter);
 
 // Routes
 app.use('/api/users', userRoutes);
-app.get('/', (_req, res): void => {
-  res.status(200).json({ message: '🚀 Server is up and running' });
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Health check endpoint
+app.get('/health', (_req, res) => {
+  res.status(200).json({ status: 'healthy' });
 });
 
-// Server Start
+// 404 handler
+app.use(notFound);
+
+// Error logging
+app.use(errorLogger);
+
+// Global error handler
+app.use(errorHandler);
+
+// Start Server
 const initServer = async () => {
   try {
     await connectToMongo();

@@ -12,7 +12,6 @@
       "vitest/globals",
       "jsdom"
     ],
-    /* Required for JSX support */
     "jsx": "react-jsx",
     /* Bundler mode */
     "moduleResolution": "bundler",
