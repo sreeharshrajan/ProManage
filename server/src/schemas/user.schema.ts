@@ -16,7 +16,8 @@ export const UserZodSchema = z.object({
     }),
   role: z.enum(['user', 'admin'])
     .optional()
-    .default('user')
+    .default('user'),
+  active: z.boolean().optional().default(true)
 }).strict();
 
 export const PartialUserZodSchema = UserZodSchema.partial()

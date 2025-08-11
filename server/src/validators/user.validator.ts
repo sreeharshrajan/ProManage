@@ -3,6 +3,13 @@ import { UserZodSchema, PartialUserZodSchema } from '../schemas/user.schema';
 import { AppError } from '../errors/app.error';
 import { logger } from '../utils/logger.util';
 
+// Extend Express Request interface to include validatedData
+declare module 'express-serve-static-core' {
+  interface Request {
+    validatedData?: any;
+  }
+}
+
 interface ValidationError {
   field: string;
   message: string;

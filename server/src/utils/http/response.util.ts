@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { FormattedResponse, ErrorResponse } from '../types/api/response.types';
+import { ApiResponse } from '../../types/api/response.type';
 
 /**
  * Standardizes API response format according to:
- * - FormattedResponse<T> for successful responses
- * - ErrorResponse for error cases (handled separately by error middleware)
+ * - ApiResponse<T> for successful responses
  * 
  * @example Success
  * {
@@ -24,7 +23,7 @@ export const responseFormatter = () => {
         return originalJson.call(this, body);
       }
 
-      const response: FormattedResponse<T> = {
+      const response: ApiResponse<T> = {
         status: 'success',
         data: body,
         timestamp: new Date().toISOString(),

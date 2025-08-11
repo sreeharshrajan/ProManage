@@ -5,7 +5,7 @@ import { logger } from '../utils/logger.util';
 
 export const authMiddleware = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ) => {
   try {
@@ -29,7 +29,8 @@ export const authMiddleware = (
 
     next();
   } catch (err) {
-    logger.error(`Authentication failed: ${err.message}`);
+    const error = err as Error;
+    logger.error(`Authentication failed: ${error.message}`);
     next(
       err instanceof jwt.JsonWebTokenError
         ? new AppError('Invalid token', 401)

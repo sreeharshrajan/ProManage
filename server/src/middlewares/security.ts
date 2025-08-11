@@ -91,12 +91,12 @@ export const corsOptions: CorsOptions = {
 
 export const corsMiddleware = cors(corsOptions);
 
-export const contentTypeMiddleware: RequestHandler = (req, res, next) => {
+export const contentTypeMiddleware: RequestHandler = (_req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   next();
 };
 
-export const securityHeaders: RequestHandler = (req, res, next) => {
+export const securityHeaders: RequestHandler = (_req, res, next) => {
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-XSS-Protection', '1; mode=block');

@@ -33,6 +33,17 @@ export const errorLogger = (
   res: Response,
   next: NextFunction
 ) => {
-  logger.error(`${err.name}: ${err.message}`);
+   logger.error(`${err.name}: ${err.message}`, {
+    request: {
+      method: req.method,
+      url: req.originalUrl,
+      headers: req.headers,
+      body: req.body
+    },
+    response: {
+      statusCode: res.statusCode,
+      headers: res.getHeaders()
+    }
+  });
   next(err);
 };

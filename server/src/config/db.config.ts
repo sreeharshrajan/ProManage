@@ -21,7 +21,11 @@ const connectToMongo = async (): Promise<void> => {
     });
 
     console.log(`✅ MongoDB connected in ${isProduction ? 'production' : 'development'} mode`);
-    console.log(`📊 Database: ${mongoose.connection.db.databaseName}`);
+    if (mongoose.connection.db) {
+      console.log(`📊 Database: ${mongoose.connection.db.databaseName}`);
+    } else {
+      console.log('📊 Database: (not available)');
+    }
   } catch (error) {
     console.error('❌ MongoDB connection error:', error);
     process.exit(1);

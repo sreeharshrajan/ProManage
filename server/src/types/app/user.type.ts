@@ -1,12 +1,16 @@
-import { z } from 'zod';
-import { UserZodSchema } from '../schemas/user.schema';
+import { Document } from 'mongoose';
 
-export interface User extends z.infer<typeof UserZodSchema> {
-  _id: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
+  role: 'user' | 'admin';
 }
 
-export type SanitizedUser = Omit<User, 'password' | 'deleted_at'>;
-export type UserCreateInput = z.infer<typeof UserZodSchema>;
-export type UserUpdateInput = Partial<UserCreateInput>;
+export interface IUserDocument extends IUser, Document {
+  createdAt: Date;
+  updatedAt: Date;
+  comparePassword(candidatePassword: string): Promise<boolean>;
+}
+
+export type UpdateUserPayload = Partial<Pick<IUser, 'name' | 'role'>>;

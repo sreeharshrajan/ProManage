@@ -7,7 +7,7 @@ export const errorHandler = (
   req: Request,
   res: Response,
   _next: NextFunction
-) => {
+): Response => {
   // Log the error
   logger.error({
     message: err.message,
@@ -37,7 +37,7 @@ export const errorHandler = (
   }
 
   // Handle unknown errors
-  res.status(500).json({
+  return res.status(500).json({
     status: 'error',
     message: 'Something went wrong',
     timestamp: new Date().toISOString()

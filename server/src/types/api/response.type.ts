@@ -1,4 +1,4 @@
-export interface FormattedResponse<T = unknown> {
+export interface ApiResponse<T = unknown> {
   status: 'success' | 'fail';
   data: T;
   timestamp: string;
@@ -6,7 +6,7 @@ export interface FormattedResponse<T = unknown> {
 }
 
 // For error responses
-export interface ErrorResponse {
+export interface ValidationError  {
   status: 'error';
   message: string;
   code?: string;

@@ -5,9 +5,9 @@ export class AppError extends Error {
 
   constructor(
     message: string,
-    statusCode = 500,
+    statusCode: number = 500,
     details?: any,
-    isOperational = true
+    isOperational: boolean = true
   ) {
     super(message);
     this.statusCode = statusCode;
@@ -20,23 +20,39 @@ export class AppError extends Error {
 
     Error.captureStackTrace(this, this.constructor);
   }
+
+  static handle(err: any, res: any) {
+    if (err instanceof AppError) {
+      return res.status(err.statusCode).json({
+        status: 'error',
+        message: err.message,
+        ...(err.details && { details: err.details })
+      });
+    }
+
+    // Handle unexpected errors
+    console.error('Unexpected error:', err);
+    res.status(500).json({
+      status: 'error',
+      message: 'Internal server error'
+    });
+  }
 }
 
-// Common error types
 export class ValidationError extends AppError {
   constructor(message: string, details?: any) {
-    super(message, 400, true, details);
+    super(message, 400, details, true);
   }
 }
 
 export class NotFoundError extends AppError {
-  constructor(message = 'Resource not found') {
-    super(message, 404);
+  constructor(message: string = 'Resource not found') {
+    super(message, 404, undefined, true);
   }
 }
 
 export class UnauthorizedError extends AppError {
-  constructor(message = 'Unauthorized access') {
-    super(message, 401);
+  constructor(message: string = 'Unauthorized access') {
+    super(message, 401, undefined, true);
   }
 }

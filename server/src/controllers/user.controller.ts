@@ -1,72 +1,56 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/user.service';
-import { validateUser, validatePartialUser } from '../validators/user.validator';
+import { UpdateUserPayload } from '../types/app/user.type';
 
 export class UserController {
-  static createUser = async (req: Request, res: Response) => {
-     const user = await UserService.createUser(req.validatedData);
-    res.status(201).json({
-      status: 'success',
-      data: user
-    });
-  };
+  static async getAllUsers(_req: Request, res: Response): Promise<void> {
+    try {
+      const users = await UserService.getAllUsers();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
 
-  static login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    const { token, user } = await UserService.login(email, password);
-    res.json({
-      status: 'success',
-      data: { token, user }
-    });
-  };
+  static async getUserById(req: Request, res: Response): Promise<void> {
+    try {
+      const user = await UserService.getUserById(req.params.id);
+      if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
 
-  static getCurrentUser = async (req: Request, res: Response) => {
-    const user = await UserService.getCurrentUser(req.user!.id);
-    res.json({
-      status: 'success',
-      data: user
-    });
-  };
+  static async updateUser(req: Request, res: Response): Promise<void> {
+    try {
+      const updatedUser = await UserService.updateUser(
+        req.params.id,
+        req.body as UpdateUserPayload
+      );
+      if (!updatedUser) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
 
-  static getAllUsers = async (_req: Request, res: Response) => {
-    const users = await UserService.getAllUsers();
-    res.json({
-      status: 'success',
-      data: users
-    });
-  };
-
-  static getUserById = async (req: Request, res: Response) => {
-    const user = await UserService.getUserById(req.params.id);
-    res.json({
-      status: 'success',
-      data: user
-    });
-  };
-
-  static updateUser = async (req: Request, res: Response) => {
-    const user = await UserService.updateUser(req.params.id, req.body);
-    res.json({
-      status: 'success',
-      data: user
-    });
-  };
-
-  static deleteUser = async (req: Request, res: Response) => {
-    await UserService.deleteUser(req.params.id);
-    res.status(204).send();
-  };
-
-  static changePassword = async (req: Request, res: Response) => {
-    const { currentPassword, newPassword } = req.body;
-    const { token } = await UserService.changePassword(
-      req.user!.id,
-      currentPassword,
-      newPassword
-    );
-    res.json({
-      status: 'success',
-      data: { token }
-    });
-  };
+  static async deleteUser(req: Request, res: Response): Promise<void> {
+    try {
+      const deletedUser = await UserService.deleteUser(req.params.id);
+      if (!deletedUser) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
 }
