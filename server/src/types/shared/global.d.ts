@@ -1,14 +1,10 @@
 import 'express';
+import { UserPayload } from '../api/auth';
 
 declare module 'express-serve-static-core' {
   interface Request {
     validatedData?: unknown;
-    user?: {
-      id: string;
-      email?: string;
-      name?: string;
-      role?: string | undefined;
-    };
+    user?: UserPayload;
     requestId?: string;
   }
 }

@@ -5,12 +5,15 @@ export interface IUser {
   email: string;
   password: string;
   role: 'user' | 'admin';
+  active: boolean;
+  deleted_at: Date | null;
 }
 
 export interface IUserDocument extends IUser, Document {
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  softDelete(): Promise<void>;
 }
 
-export type UpdateUserPayload = Partial<Pick<IUser, 'name' | 'role'>>;
+export type UpdateUserPayload = Partial<Pick<IUser, 'name' | 'email' | 'role' | 'active'>>;

@@ -6,12 +6,18 @@ export const validateRequest = (schema: ZodSchema<any>) => {
     const result = schema.safeParse(req.body);
 
     if (!result.success) {
-      res.status(400).json({
+      const errors = result.error.issues.map(issue => ({
+        path: issue.path.join('.'),
+        message: issue.message
+      }));
+
+      // Use 422 Unprocessable Entity for validation errors
+      res.status(422).json({
         status: 'error',
-        message: 'Validation failed',
-        errors: result.error.issues, // ✅ use `issues` instead of `errors`
+        message: 'Request validation failed. Please check your input and try again.',
+        errors
       });
-      return; // ✅ end execution explicitly
+      return;
     }
 
     req.body = result.data;
