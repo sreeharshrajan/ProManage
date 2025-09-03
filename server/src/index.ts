@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { securityMiddleware, contentTypeMiddleware, securityHeaders,corsMiddleware  } from './middlewares/security';
+import { securityMiddleware, contentTypeMiddleware, securityHeaders,corsMiddleware  } from './middlewares/security.middleware';
 import { httpLogger, errorLogger } from './utils/logger.util';
 import connectToMongo from './config/db.config';
 import userRoutes from './routes/user.routes';
